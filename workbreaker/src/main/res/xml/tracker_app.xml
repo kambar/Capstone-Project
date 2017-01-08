@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="ga_trackingId">UA-89989534-1</string>
+    <bool name="ga_autoActivityTracking">false</bool>
+    <screenName name="com.barbachowski.k.workbreaker.MainActivity">Main Activity</screenName>
+    <screenName name="com.barbachowski.k.workbreaker.ExercisesActivity">Exercises Activity</screenName>
+</resources>
