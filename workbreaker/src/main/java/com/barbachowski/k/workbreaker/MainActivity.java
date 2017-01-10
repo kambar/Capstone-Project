@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(timerRunning){
                     Snackbar.make(view, R.string.make_exercises_now, Snackbar.LENGTH_LONG)
-                            .setAction("Click me!", new View.OnClickListener() {
+                            .setAction(R.string.click_me, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     openExerciseView();
@@ -70,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        restartCountDownService();
+        updateFABIcon();
+        mTracker.setScreenName("Main Activity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -86,25 +93,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void triggerService(){
         if(timerRunning){
-            startCountingInService();
+            startCountDownService();
         }
         else{
-            pauseCountingInService();
+            stopCountDownService();
         }
     }
 
-    private void startCountingInService() {
+    private void restartCountDownService(){
+        stopCountDownService();
+        remainingMilliseconds = 30000; // todo init value from settings
+        startCountDownService();
+    }
+
+    private void startCountDownService() {
         Intent intent = new Intent(this, CountDownService.class);
         intent.putExtra(CountDownService.key, remainingMilliseconds);
         startService(intent);
+        timerRunning=true;
     }
 
-    private void pauseCountingInService() {
+    private void stopCountDownService() {
         Intent intent = new Intent(this, CountDownService.class);
         stopService(intent);
+        timerRunning=false;
     }
 
     private void openExerciseView(){
+        stopCountDownService();
         Intent intent = new Intent(getApplicationContext(), ExercisesActivity.class);
 
         startActivity(intent);
@@ -117,13 +133,6 @@ public class MainActivity extends AppCompatActivity {
         else{
             fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), android.R.drawable.ic_media_pause));
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mTracker.setScreenName("Main Activity");
-        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -148,18 +157,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private String formatTimeFromMilliseconds(long milliseconds){
-        if(TimeUnit.MILLISECONDS.toHours(milliseconds)==0)
-        {
-            return String.format("%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(milliseconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
-                    TimeUnit.MILLISECONDS.toSeconds(milliseconds) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
-        }
-        return String.format("%02d:%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(milliseconds),
-                TimeUnit.MILLISECONDS.toMinutes(milliseconds) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliseconds)),
-                TimeUnit.MILLISECONDS.toSeconds(milliseconds) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliseconds)));
-    }
+
 
     private class CountDownServiceBroadcastReceiver extends BroadcastReceiver{
 
@@ -168,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
             if(intent != null){
                 remainingMilliseconds = intent.getLongExtra(CountDownService.key, 0);
                 if(remainingMilliseconds!=0){
-                    mRemainingTimeTextView.setText(formatTimeFromMilliseconds(remainingMilliseconds));
+                    mRemainingTimeTextView.setText(Utilities.formatTimeFromMilliseconds(remainingMilliseconds));
                 }
                 else
                 {
                     remainingMilliseconds = 30000; // todo set from settings
                     openExerciseView();
-                    mRemainingTimeTextView.setText(formatTimeFromMilliseconds(remainingMilliseconds));
+                    mRemainingTimeTextView.setText(Utilities.formatTimeFromMilliseconds(remainingMilliseconds));
                 }
             }
 

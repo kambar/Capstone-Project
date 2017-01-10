@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkBreaker</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="ex10_desc">8-10 sekund każda strona</string>
+    <string name="ex11_desc">10-25 sekund, 2 razy</string>
+    <string name="ex12_desc">Trzęś rękami 8-10 sekund</string>
+    <string name="ex1_desc">10-20 sekund, powtórz 2 razy</string>
+    <string name="ex2_desc">10-15 sekund</string>
+    <string name="ex3_desc">8-10 sekund każda strona</string>
+    <string name="ex4_desc">15-20 sekund</string>
+    <string name="ex5_desc">3-5 sekund, powtórz 3 razy</string>
+    <string name="ex6_desc">10-12 sekund każda strona</string>
+    <string name="time_remaining">Czas do następnej przerwy</string>
+    <string name="widget_break_now_info">Zacznij przerwę teraz. Kliknij mnie!</string>
+    <string name="notification_title">Czas na przerwe!</string>
+    <string name="notification_text">Rozpocznij przerwę i poczuj się lepiej!</string>
+    <string name="make_exercises_now">Zrób przerwę teraz!</string>
+    <string name="ex7_desc">10 sekund</string>
+    <string name="ex8_desc">10 sekund</string>
+    <string name="ex9_desc">8-10 sekund każda strona</string>
+    <string name="title_activity_exercises">Wykonaj ćwiczenia co godzinę albo kiedy czujesz zesztywnienie</string>
+    <string name="done">Zrobione</string>
+    <string name="skip">Pomiń</string>
+    <string name="click_me">Kliknij mnie!</string>
+    <string name="next_break_in">Następna przerwa za:</string>
+</resources>

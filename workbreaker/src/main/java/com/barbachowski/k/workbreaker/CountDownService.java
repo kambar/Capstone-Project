@@ -3,6 +3,9 @@ package com.barbachowski.k.workbreaker;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -10,6 +13,8 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
+import android.widget.RemoteViews;
 
 public class CountDownService extends Service {
     public static final String CountDownServiceRemainingTime = "RemainingTime";
@@ -35,6 +40,7 @@ public class CountDownService extends Service {
                     Intent intent = new Intent(CountDownServiceRemainingTime);
                     intent.putExtra(key, millisUntilFinished);
                     LocalBroadcastManager.getInstance(CountDownService.this).sendBroadcast(intent);
+                    updateWidget(millisUntilFinished);
                 }
 
                 public void onFinish() {
@@ -42,6 +48,7 @@ public class CountDownService extends Service {
                     intent.putExtra(key, 0L);
                     LocalBroadcastManager.getInstance(CountDownService.this).sendBroadcast(intent);
                     sendNotification();
+                    updateWidget(0L);
                 }
             }.start();
         }
@@ -53,8 +60,8 @@ public class CountDownService extends Service {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(CountDownService.this);
-        builder.setContentTitle("Break time!");
-        builder.setContentText("Make exercises to feel better now!");
+        builder.setContentTitle(getString(R.string.notification_title));
+        builder.setContentText(getString(R.string.notification_text));
         builder.setSmallIcon(android.R.drawable.ic_media_pause);
         builder.setSound(soundUri);
         Intent intent = new Intent(this, ExercisesActivity.class);
@@ -63,6 +70,24 @@ public class CountDownService extends Service {
 
 
         notificationManager.notify(0,builder.build());
+    }
+
+    private void updateWidget(long millisUntilFinished){
+        Context context = this;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.workbreaker_appwidget);
+        ComponentName thisWidget = new ComponentName(context, WorkBreakerAppWidgetProvider.class);
+
+        if(millisUntilFinished>0){
+            remoteViews.setViewVisibility(R.id.widget_caption, View.VISIBLE);
+            remoteViews.setTextViewText(R.id.widget_remaining_time, Utilities.formatTimeFromMilliseconds(millisUntilFinished));
+        }
+        else{
+            remoteViews.setViewVisibility(R.id.widget_caption, View.INVISIBLE);
+            remoteViews.setTextViewText(R.id.widget_remaining_time, getString(R.string.widget_break_now_info));
+        }
+
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
     }
 
     @Override

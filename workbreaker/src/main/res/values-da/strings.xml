@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WorkBreaker</string>
+    <string name="action_settings">Indstillinger</string>
+    <string name="ex10_desc">8-10 sekunder hver sidde</string>
+    <string name="ex11_desc">10-25 sekunder, 2 gange</string>
+    <string name="ex12_desc">Shake out hands 8-10 sekunder</string>
+    <string name="ex1_desc">10-20 sekunder, 2 gange</string>
+    <string name="ex2_desc">10-15 sekunder</string>
+    <string name="ex3_desc">8-10 sekunder hver sidde</string>
+    <string name="ex4_desc">15-20 sekunder</string>
+    <string name="ex5_desc">3-5 sekunder, 3 gange</string>
+    <string name="ex6_desc">10-12 sekunder hver side</string>
+    <string name="time_remaining">Tid til næste øvelse</string>
+    <string name="widget_break_now_info">Break nu! Klik mig!</string>
+    <string name="notification_title">Pause tid nu!</string>
+    <string name="notification_text">Lav øvelse for at fole bedre nu!</string>
+    <string name="make_exercises_now">Hold øvelse pause nu!</string>
+    <string name="ex7_desc">10 sekunder</string>
+    <string name="ex8_desc">10 sekunder</string>
+    <string name="ex9_desc">8-10 sekunder hver sidde</string>
+    <string name="title_activity_exercises">Lav øvelser hver time eller når du føler stiv</string>
+    <string name="done">Færdig</string>
+    <string name="skip">Droppe</string>
+    <string name="click_me">Klik mig!</string>
+    <string name="next_break_in">Næste pause om:</string>
+</resources>

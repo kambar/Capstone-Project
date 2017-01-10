@@ -7,4 +7,7 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="design_fab_size_normal">150dp</dimen>
     <dimen name="design_fab_image_size" tools:override="true">75dp</dimen>
+    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="exercise_card_padding">8dp</dimen>
+    <dimen name="exercise_desc_font_size">18sp</dimen>
 </resources>

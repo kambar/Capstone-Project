@@ -51,13 +51,16 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Skip"/>
+            android:backgroundTint="@color/colorSecondary"
+            android:text="@string/skip"/>
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/done_button"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Done"/>
+
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/done"/>
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.design.widget.CoordinatorLayout>

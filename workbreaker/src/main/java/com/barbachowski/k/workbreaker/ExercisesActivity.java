@@ -29,6 +29,7 @@ public class ExercisesActivity extends AppCompatActivity {
         mTracker = application.getDefaultTracker();
         mInterstitialAd = newInterstitialAd();
         loadInterstitial();
+
         AppCompatButton skipButton = (AppCompatButton)findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +38,7 @@ public class ExercisesActivity extends AppCompatActivity {
                 showInterstitial();
             }
         });
+
         AppCompatButton doneButton = (AppCompatButton)findViewById(R.id.done_button);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +64,15 @@ public class ExercisesActivity extends AppCompatActivity {
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
+    @Override
+    public void onBackPressed() {
+        sendActionTracking("Back");
+        showInterstitial();
+    }
+
     private void sendActionTracking(String action){
         mTracker.setScreenName(ExercisesActivity.class.getSimpleName());
-        mTracker.send(new HitBuilders.EventBuilder().setAction(action).build());
+        mTracker.send(new HitBuilders.EventBuilder().setCategory("ExerciseAction").setAction(action).build());
     }
 
     private InterstitialAd newInterstitialAd() {
