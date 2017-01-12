@@ -26,13 +26,18 @@ public class MainActivity extends AppCompatActivity {
     private static boolean timerRunning = false;
     private TextView mRemainingTimeTextView;
     private CountDownServiceBroadcastReceiver receiver;
-    private long remainingMilliseconds = 30000; // todo init value from settings
+    private long remainingMilliseconds;
     private Tracker mTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        if(savedInstanceState!=null){
+            //get remainingMilliseconds
+            remainingMilliseconds = savedInstanceState.getLong(Const.millisKey, Const.defaultRemainingTime);
+        }
 
         // Obtain the shared Tracker instance.
         MyAnalyticsApplication application = (MyAnalyticsApplication) getApplication();
@@ -43,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         receiver = new CountDownServiceBroadcastReceiver();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(Const.millisKey, remainingMilliseconds);
     }
 
     @Override
@@ -102,20 +111,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void restartCountDownService(){
         stopCountDownService();
-        remainingMilliseconds = 30000; // todo init value from settings
+
+        if(remainingMilliseconds==0){
+            setRemainingTime();
+        }
+
         startCountDownService();
     }
 
+    private void setRemainingTime(){
+        remainingMilliseconds = getSharedPreferences(Const.sharedPref, MODE_PRIVATE).getLong(Const.millisKey,Const.defaultRemainingTime);
+    }
+
     private void startCountDownService() {
-        Intent intent = new Intent(this, CountDownService.class);
-        intent.putExtra(CountDownService.key, remainingMilliseconds);
-        startService(intent);
+        Utils.startCountDownService(this, remainingMilliseconds);
         timerRunning=true;
     }
 
     private void stopCountDownService() {
-        Intent intent = new Intent(this, CountDownService.class);
-        stopService(intent);
+        Utils.stopCountDownService(this);
         timerRunning=false;
     }
 
@@ -151,12 +165,17 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            openSettings();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
 
     private class CountDownServiceBroadcastReceiver extends BroadcastReceiver{
@@ -164,15 +183,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if(intent != null){
+                timerRunning = true;
                 remainingMilliseconds = intent.getLongExtra(CountDownService.key, 0);
                 if(remainingMilliseconds!=0){
-                    mRemainingTimeTextView.setText(Utilities.formatTimeFromMilliseconds(remainingMilliseconds));
+                    mRemainingTimeTextView.setText(Utils.formatTimeFromMilliseconds(remainingMilliseconds));
                 }
                 else
                 {
-                    remainingMilliseconds = 30000; // todo set from settings
+                    setRemainingTime();
                     openExerciseView();
-                    mRemainingTimeTextView.setText(Utilities.formatTimeFromMilliseconds(remainingMilliseconds));
+                    mRemainingTimeTextView.setText(Utils.formatTimeFromMilliseconds(remainingMilliseconds));
                 }
             }
 

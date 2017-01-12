@@ -12,7 +12,7 @@
     <string name="ex5_desc">3-5 sekund, powtórz 3 razy</string>
     <string name="ex6_desc">10-12 sekund każda strona</string>
     <string name="time_remaining">Czas do następnej przerwy</string>
-    <string name="widget_break_now_info">Zacznij przerwę teraz. Kliknij mnie!</string>
+    <string name="widget_break_now_info">Czas na przerwę. Kliknij mnie!</string>
     <string name="notification_title">Czas na przerwe!</string>
     <string name="notification_text">Rozpocznij przerwę i poczuj się lepiej!</string>
     <string name="make_exercises_now">Zrób przerwę teraz!</string>
@@ -24,4 +24,12 @@
     <string name="skip">Pomiń</string>
     <string name="click_me">Kliknij mnie!</string>
     <string name="next_break_in">Następna przerwa za:</string>
+    <string name="pref_header_notifications">Powiadomienia</string>
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="pref_title_vibrate">Wibracje</string>
+    <string name="pref_header_general">Ogólne</string>
+    <string name="time_preference_set">Set</string>
+    <string name="time_preference_cancel">Anuluj</string>
+    <string name="break_interval_title">Break interval</string>
+    <string name="pref_ringtone_silent">Cichy</string>
 </resources>

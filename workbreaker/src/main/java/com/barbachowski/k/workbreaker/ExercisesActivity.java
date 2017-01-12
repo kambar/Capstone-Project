@@ -34,6 +34,8 @@ public class ExercisesActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ExercisesActivity.this, DataUploadService.class);
+                startService(intent);
                 sendActionTracking("Skip");
                 showInterstitial();
             }
@@ -43,6 +45,8 @@ public class ExercisesActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(ExercisesActivity.this, DataUploadService.class);
+                startService(intent);
                 sendActionTracking("Done");
                 showInterstitial();
             }

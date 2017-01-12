@@ -41,7 +41,7 @@ public class MyAnalyticsApplication extends Application {
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
             mTracker = analytics.newTracker(R.xml.tracker_app); //todo update
             analytics.enableAutoActivityReports(this);
-            analytics.getLogger().setLogLevel(LogLevel.VERBOSE); // todo depecated - use "adb shell setprop log.tag.GAv4 DEBUG; adb logcat -s GAv4" instead
+            //analytics.getLogger().setLogLevel(LogLevel.VERBOSE); // todo depecated - use "adb shell setprop log.tag.GAv4 DEBUG; adb logcat -s GAv4" instead
         }
         return mTracker;
     }

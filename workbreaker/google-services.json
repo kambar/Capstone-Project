@@ -1,0 +1,57 @@
+{
+  "project_info": {
+    "project_number": "919330087440",
+    "firebase_url": "https://fir-workbreaker.firebaseio.com",
+    "project_id": "firebase-workbreaker",
+    "storage_bucket": "firebase-workbreaker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:919330087440:android:a3fae41344c475e5",
+        "android_client_info": {
+          "package_name": "com.barbachowski.k.workbreaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "919330087440-p66se963jk217ts64bk7868l1ll11ggr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barbachowski.k.workbreaker",
+            "certificate_hash": "E57304EE762A291A1CD72A8176C3A194B6B6BE54"
+          }
+        },
+        {
+          "client_id": "919330087440-hhhaoajgaiokeiblfvereg5lc7ara8vm.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "919330087440-hi24lgflc53pjsjjb0fokra2c7ed9jru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5zOdGnX_hSw-UNWywpNqpjISqItq9Gic"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-89989534-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

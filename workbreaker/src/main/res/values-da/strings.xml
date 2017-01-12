@@ -12,7 +12,7 @@
     <string name="ex5_desc">3-5 sekunder, 3 gange</string>
     <string name="ex6_desc">10-12 sekunder hver side</string>
     <string name="time_remaining">Tid til næste øvelse</string>
-    <string name="widget_break_now_info">Break nu! Klik mig!</string>
+    <string name="widget_break_now_info">Break tid! Klik mig!</string>
     <string name="notification_title">Pause tid nu!</string>
     <string name="notification_text">Lav øvelse for at fole bedre nu!</string>
     <string name="make_exercises_now">Hold øvelse pause nu!</string>
@@ -24,4 +24,10 @@
     <string name="skip">Droppe</string>
     <string name="click_me">Klik mig!</string>
     <string name="next_break_in">Næste pause om:</string>
+    <string name="title_activity_settings">Indstillinger</string>
+    <string name="pref_header_general">Generalt</string>
+    <string name="time_preference_set">Sæt</string>
+    <string name="time_preference_cancel">Anullere</string>
+    <string name="break_interval_title">Break interval</string>
+    <string name="pref_ringtone_silent">Stille</string>
 </resources>

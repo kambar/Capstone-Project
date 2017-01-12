@@ -25,6 +25,5 @@
         android:id="@+id/remaining_time"
         android:layout_gravity="center|center"
         android:layout_marginTop="-28dp"
-        android:text="30:00"
-        android:textSize="96dp"/>
+        android:textSize="90dp"/>
 </LinearLayout>

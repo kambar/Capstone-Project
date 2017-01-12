@@ -13,12 +13,14 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 public class CountDownService extends Service {
     public static final String CountDownServiceRemainingTime = "RemainingTime";
     public static final String key = "remainingMilliseconds";
+    private String TAG = CountDownService.class.getCanonicalName();
 
     private CountDownTimer mTimer;
     public CountDownService() {
@@ -34,9 +36,11 @@ public class CountDownService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(intent!=null){
             long milliseconds = intent.getLongExtra(key, 0);
+            Log.v(TAG, "Service started. Millis:"+milliseconds);
             mTimer = new CountDownTimer(milliseconds, 1000) {
 
                 public void onTick(long millisUntilFinished) {
+                    //Log.v(TAG, "Service onTick. Millis until finished:"+millisUntilFinished);
                     Intent intent = new Intent(CountDownServiceRemainingTime);
                     intent.putExtra(key, millisUntilFinished);
                     LocalBroadcastManager.getInstance(CountDownService.this).sendBroadcast(intent);
@@ -44,6 +48,7 @@ public class CountDownService extends Service {
                 }
 
                 public void onFinish() {
+                    Log.v(TAG, "Service finished.");
                     Intent intent = new Intent(CountDownServiceRemainingTime);
                     intent.putExtra(key, 0L);
                     LocalBroadcastManager.getInstance(CountDownService.this).sendBroadcast(intent);
@@ -80,7 +85,7 @@ public class CountDownService extends Service {
 
         if(millisUntilFinished>0){
             remoteViews.setViewVisibility(R.id.widget_caption, View.VISIBLE);
-            remoteViews.setTextViewText(R.id.widget_remaining_time, Utilities.formatTimeFromMilliseconds(millisUntilFinished));
+            remoteViews.setTextViewText(R.id.widget_remaining_time, Utils.formatTimeFromMilliseconds(millisUntilFinished));
         }
         else{
             remoteViews.setViewVisibility(R.id.widget_caption, View.INVISIBLE);
