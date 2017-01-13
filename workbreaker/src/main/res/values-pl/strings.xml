@@ -32,4 +32,10 @@
     <string name="time_preference_cancel">Anuluj</string>
     <string name="break_interval_title">Break interval</string>
     <string name="pref_ringtone_silent">Cichy</string>
+    <string name="number_of_done">liczba wykonanych</string>
+    <string name="number_of_skipped">liczba pominiętych</string>
+    <string name="start_or_pause_timer">start albo pauza odliczania</string>
+    <string name="pref_title_display_name">Wyświetlane imię</string>
+    <string name="pref_title_new_message_notifications">Powiadomienia o przerwach</string>
+    <string name="pref_title_ringtone">Dzwonek</string>
 </resources>

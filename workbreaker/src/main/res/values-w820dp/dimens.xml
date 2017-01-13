@@ -3,6 +3,7 @@
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
     <dimen name="activity_horizontal_margin">64dp</dimen>
-    <dimen name="design_fab_size_normal">300dp</dimen>
-    <dimen name="design_fab_image_size" tools:override="true">150dp</dimen>
+    <dimen name="fab_margin_top">400sp</dimen>
+    <dimen name="design_fab_size_normal">140dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">70dp</dimen>
 </resources>

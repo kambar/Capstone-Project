@@ -55,9 +55,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorSecondary"
+                android:contentDescription="@string/skip"
+                android:nextFocusRight="@+id/done_button"
                 android:text="@string/skip"/>
             <TextView
                 android:id="@+id/skip_badge"
+                android:contentDescription="@string/number_of_skipped"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/skip_button"
@@ -75,13 +78,14 @@
             android:layout_weight="1">
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/done_button"
+                android:nextFocusLeft="@+id/skip_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:backgroundTint="@color/colorAccent"
                 android:text="@string/done"/>
             <TextView
                 android:id="@+id/done_badge"
+                android:contentDescription="@string/number_of_done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/done_button"

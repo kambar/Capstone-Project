@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|center"
         app:fabSize="auto"
-        android:layout_marginTop="370sp"
+        android:layout_marginTop="@dimen/fab_margin_top"
+        android:contentDescription="@string/start_or_pause_timer"
         app:srcCompat="@android:drawable/ic_media_play" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -34,6 +34,7 @@
                     android:textSize="@dimen/exercise_desc_font_size"
                     android:text="@string/ex1_desc"/>
                 <ImageView
+                    android:contentDescription="@string/ex1_desc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -63,6 +64,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex2_desc"/>
             <ImageView
+                android:contentDescription="@string/ex2_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -91,6 +93,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex3_desc"/>
             <ImageView
+                android:contentDescription="@string/ex3_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -119,6 +122,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex4_desc"/>
             <ImageView
+                android:contentDescription="@string/ex4_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -147,6 +151,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex5_desc"/>
             <ImageView
+                android:contentDescription="@string/ex5_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -175,6 +180,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex6_desc"/>
             <ImageView
+                android:contentDescription="@string/ex6_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -203,6 +209,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex7_desc"/>
             <ImageView
+                android:contentDescription="@string/ex7_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -231,6 +238,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex8_desc"/>
             <ImageView
+                android:contentDescription="@string/ex8_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -259,6 +267,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex9_desc"/>
             <ImageView
+                android:contentDescription="@string/ex9_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -287,6 +296,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex10_desc"/>
             <ImageView
+                android:contentDescription="@string/ex10_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -315,6 +325,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex11_desc"/>
             <ImageView
+                android:contentDescription="@string/ex11_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -343,6 +354,7 @@
                 android:textSize="@dimen/exercise_desc_font_size"
                 android:text="@string/ex12_desc"/>
             <ImageView
+                android:contentDescription="@string/ex12_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"

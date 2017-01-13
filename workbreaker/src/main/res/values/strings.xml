@@ -51,4 +51,7 @@
     <string name="time_preference_set">Set</string>
     <string name="time_preference_cancel">Cancel</string>
     <string name="break_interval_title">Break interval</string>
+    <string name="number_of_skipped">number of skipped</string>
+    <string name="number_of_done">number of done</string>
+    <string name="start_or_pause_timer">start or pause timer</string>
 </resources>
