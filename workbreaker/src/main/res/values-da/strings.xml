@@ -38,4 +38,5 @@
     <string name="pref_title_display_name">Vist navn</string>
     <string name="pref_title_new_message_notifications">Pause notifikationer</string>
     <string name="pref_title_ringtone">Ringetone</string>
+    <string name="add_did_not_load_text">Ad ikke loaded</string>
 </resources>

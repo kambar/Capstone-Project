@@ -33,7 +33,6 @@ public class CountDownService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 
@@ -102,7 +101,10 @@ public class CountDownService extends Service {
 
     @Override
     public void onDestroy() {
-        mTimer.cancel();
+        if(mTimer!=null){
+            mTimer.cancel();
+        }
+
         super.onDestroy();
     }
 }

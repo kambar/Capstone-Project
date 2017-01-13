@@ -54,4 +54,6 @@
     <string name="number_of_skipped">number of skipped</string>
     <string name="number_of_done">number of done</string>
     <string name="start_or_pause_timer">start or pause timer</string>
+    <string name="add_did_not_load_text">Ad did not load</string>
+    <string name="Exercise_Activity_Screen_Name" translatable="false">Exercises Activity</string>
 </resources>

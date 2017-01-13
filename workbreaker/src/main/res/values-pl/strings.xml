@@ -38,4 +38,5 @@
     <string name="pref_title_display_name">Wyświetlane imię</string>
     <string name="pref_title_new_message_notifications">Powiadomienia o przerwach</string>
     <string name="pref_title_ringtone">Dzwonek</string>
+    <string name="add_did_not_load_text">Reklama nie została załadowana</string>
 </resources>

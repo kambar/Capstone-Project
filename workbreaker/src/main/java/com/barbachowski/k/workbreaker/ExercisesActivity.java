@@ -130,7 +130,7 @@ public class ExercisesActivity extends AppCompatActivity implements LoaderManage
     @Override
     protected void onStart() {
         super.onStart();
-        mTracker.setScreenName("Exercises Activity");
+        mTracker.setScreenName(getString(R.string.Exercise_Activity_Screen_Name));
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
@@ -179,7 +179,7 @@ public class ExercisesActivity extends AppCompatActivity implements LoaderManage
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
-            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.add_did_not_load_text, Toast.LENGTH_SHORT).show();
             goToTheMainScreen();
         }
     }
@@ -193,9 +193,8 @@ public class ExercisesActivity extends AppCompatActivity implements LoaderManage
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = { ExerciseStatisticsTable.COLUMN_COUNT_SKIPPED, ExerciseStatisticsTable.COLUMN_COUNT_DONE };
-        CursorLoader cursorLoader = new CursorLoader(this,
+        return new CursorLoader(this,
                 WorkBreakerContentProvider.EXERCISE_STATISTICS__URI, projection, null, null, null);
-        return cursorLoader;
     }
 
     @Override
