@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 
+import com.barbachowski.k.workbreaker.service.CountDownService;
+
 import java.util.concurrent.TimeUnit;
 
 /**

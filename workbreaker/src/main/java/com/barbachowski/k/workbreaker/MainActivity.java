@@ -11,11 +11,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.barbachowski.k.workbreaker.service.CountDownService;
+import com.barbachowski.k.workbreaker.settings.SettingsActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -31,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+        setupWindowAnimations();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         if(savedInstanceState!=null){
@@ -71,6 +78,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //setupWindowAnimations();
+    }
+
+    private void setupWindowAnimations() {
+        Explode fade = new Explode();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+
+        Explode slide = new Explode();
+        slide.setDuration(1000);
+        getWindow().setReturnTransition(slide);
     }
 
     @Override

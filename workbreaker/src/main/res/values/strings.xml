@@ -2,7 +2,7 @@
     <string name="app_name">WorkBreaker</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_exercises">Do these exercises every hour or whenever you feel stiff</string>
-    <string name="time_remaining">Remaining to the next exercise</string>
+    <string name="time_remaining">Next exercise break in:</string>
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638

@@ -1,4 +1,7 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.interfaces;
+
+import com.barbachowski.k.workbreaker.entity.ExerciseSession;
+import com.barbachowski.k.workbreaker.entity.ExerciseStatistics;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -1,4 +1,4 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -6,6 +6,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+
+import com.barbachowski.k.workbreaker.ExercisesActivity;
+import com.barbachowski.k.workbreaker.R;
 
 /**
  * Created by K on 08/01/2017.

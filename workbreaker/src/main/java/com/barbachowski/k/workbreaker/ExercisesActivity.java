@@ -1,27 +1,51 @@
 package com.barbachowski.k.workbreaker;
 
+import android.app.LoaderManager;
+import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.barbachowski.k.workbreaker.contentProvider.WorkBreakerContentProvider;
+import com.barbachowski.k.workbreaker.database.ExerciseSessionTable;
+import com.barbachowski.k.workbreaker.database.ExerciseStatisticsTable;
+import com.barbachowski.k.workbreaker.entity.ExerciseSession;
+import com.barbachowski.k.workbreaker.entity.ExerciseStatistics;
+import com.barbachowski.k.workbreaker.service.DataUploadService;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
-public class ExercisesActivity extends AppCompatActivity {
+public class ExercisesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private InterstitialAd mInterstitialAd;
     private Tracker mTracker;
+    private ExerciseStatistics mStatistics;
+    private TextView mSkippedBadgeTV;
+    private TextView mDoneBadgeTV;
+    private String TAG = ExercisesActivity.class.getCanonicalName();
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_exercises);
+        setupWindowAnimations();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Obtain the shared Tracker instance.
@@ -34,10 +58,13 @@ public class ExercisesActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExercisesActivity.this, DataUploadService.class);
-                startService(intent);
-                sendActionTracking("Skip");
-                showInterstitial();
+                ExerciseSession exercise = new ExerciseSession(1);
+
+                if(mStatistics!=null){
+                    mStatistics.increaseSkipped();
+                }
+
+                handleButtonClick(exercise, mStatistics, "Skip");
             }
         });
 
@@ -45,21 +72,60 @@ public class ExercisesActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExercisesActivity.this, DataUploadService.class);
-                startService(intent);
-                sendActionTracking("Done");
-                showInterstitial();
+                ExerciseSession exercise = new ExerciseSession(0);
+
+                if(mStatistics!=null){
+                    mStatistics.increaseDone();
+                }
+
+                handleButtonClick(exercise, mStatistics, "Done");
             }
         });
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
+        mSkippedBadgeTV = (TextView)findViewById(R.id.skip_badge);
+        mDoneBadgeTV = (TextView)findViewById(R.id.done_badge);
+
+        // Prepare the loader.  Either re-connect with an existing one,
+        // or start a new one.
+        getLoaderManager().initLoader(0, null, this);
+
+
     }
+
+    private void setupWindowAnimations() {
+        Explode fade = new Explode();
+        fade.setDuration(1000);
+        getWindow().setEnterTransition(fade);
+
+        Explode slide = new Explode();
+        slide.setDuration(1000);
+        getWindow().setReturnTransition(slide);
+
+    }
+
+    private void handleButtonClick(ExerciseSession exercise, ExerciseStatistics statistics, String actionTracking){
+        updateData(exercise,statistics);
+        Intent intent = new Intent(ExercisesActivity.this, DataUploadService.class);
+        intent.putExtra(DataUploadService.statisticsKey, statistics);
+        intent.putExtra(DataUploadService.exercisesKey, exercise);
+        startService(intent);
+        sendActionTracking(actionTracking);
+        showInterstitial();
+    }
+
+    private void updateData(ExerciseSession exercise, ExerciseStatistics statistics){
+        ContentValues v = new ContentValues();
+        v.put(ExerciseSessionTable.COLUMN_SKIPPED, exercise.getSkipped());
+        v.put(ExerciseSessionTable.COLUMN_DATE, exercise.getDate().toString());
+        getContentResolver().insert(WorkBreakerContentProvider.EXERCISE_SESSIONS__URI, v);
+
+
+        ContentValues v2 = new ContentValues();
+        v2.put(ExerciseStatisticsTable.COLUMN_COUNT_DONE, statistics.getNumberOfDone());
+        v2.put(ExerciseStatisticsTable.COLUMN_COUNT_SKIPPED, statistics.getNumberOfSkipped());
+        getContentResolver().update(WorkBreakerContentProvider.EXERCISE_STATISTICS__URI, v2, null, null);
+    }
+
 
     @Override
     protected void onStart() {
@@ -122,5 +188,49 @@ public class ExercisesActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder()
                 .setRequestAgent("android_studio:ad_template").build();
         mInterstitialAd.loadAd(adRequest);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = { ExerciseStatisticsTable.COLUMN_COUNT_SKIPPED, ExerciseStatisticsTable.COLUMN_COUNT_DONE };
+        CursorLoader cursorLoader = new CursorLoader(this,
+                WorkBreakerContentProvider.EXERCISE_STATISTICS__URI, projection, null, null, null);
+        return cursorLoader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if(cursor.moveToFirst()){
+            int skippedCount = cursor.getInt(cursor.getColumnIndex(ExerciseStatisticsTable.COLUMN_COUNT_SKIPPED));
+            int doneCount = cursor.getInt(cursor.getColumnIndex(ExerciseStatisticsTable.COLUMN_COUNT_DONE));
+            mStatistics = new ExerciseStatistics(doneCount, skippedCount);
+            Log.v(TAG, "Skipped:"+skippedCount+", Done:"+doneCount);
+            //update buttons
+            String skipped;
+            String done;
+            if(skippedCount < 100){
+                skipped = " "+Integer.toString(skippedCount)+" ";
+            }
+            else{
+                skipped = Integer.toString(skippedCount);
+            }
+
+            if(skippedCount < 100){
+                done = " "+Integer.toString(doneCount)+" ";
+            }
+            else{
+                done = Integer.toString(doneCount);
+            }
+
+            mSkippedBadgeTV.setText(skipped);
+            mDoneBadgeTV.setText(done);
+
+            //cursor.close();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 }

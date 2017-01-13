@@ -1,4 +1,4 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +16,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import com.barbachowski.k.workbreaker.ExercisesActivity;
+import com.barbachowski.k.workbreaker.R;
+import com.barbachowski.k.workbreaker.Utils;
+import com.barbachowski.k.workbreaker.widget.WorkBreakerAppWidgetProvider;
 
 public class CountDownService extends Service {
     public static final String CountDownServiceRemainingTime = "RemainingTime";

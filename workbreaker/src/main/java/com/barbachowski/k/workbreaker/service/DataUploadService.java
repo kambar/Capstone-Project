@@ -1,8 +1,14 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.service;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+
+import com.barbachowski.k.workbreaker.Const;
+import com.barbachowski.k.workbreaker.entity.ExerciseSession;
+import com.barbachowski.k.workbreaker.entity.ExerciseStatistics;
+import com.barbachowski.k.workbreaker.Utils;
+import com.barbachowski.k.workbreaker.interfaces.WorkBreakerApi;
 
 import java.util.Date;
 
@@ -18,6 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataUploadService extends IntentService {
     private String TAG = DataUploadService.class.getCanonicalName();
+    public static final String statisticsKey = "statistics";
+    public static final String exercisesKey = "exercise";
 
     public DataUploadService()
     {
@@ -35,7 +43,9 @@ public class DataUploadService extends IntentService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         WorkBreakerApi api = retrofit.create(WorkBreakerApi.class);
-        Call<ExerciseSession> call = api.addExercise(Utils.UID(this), new ExerciseSession(new Date(),false));
+        ExerciseSession session = intent.getParcelableExtra(exercisesKey);
+
+        Call<ExerciseSession> call = api.addExercise(Utils.UID(this), session);
         call.enqueue(new Callback<ExerciseSession>() {
             @Override
             public void onResponse(Call<ExerciseSession> call, Response<ExerciseSession> response) {
@@ -48,7 +58,9 @@ public class DataUploadService extends IntentService {
             }
         });
 
-        Call<ExerciseStatistics> call2 = api.updateStatistics(Utils.UID(this), new ExerciseStatistics(2, 3));
+        ExerciseStatistics statistics = intent.getParcelableExtra(statisticsKey);
+
+        Call<ExerciseStatistics> call2 = api.updateStatistics(Utils.UID(this), statistics);
         call2.enqueue(new Callback<ExerciseStatistics>() {
             @Override
             public void onResponse(Call<ExerciseStatistics> call, Response<ExerciseStatistics> response) {

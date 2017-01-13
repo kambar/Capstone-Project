@@ -1,4 +1,4 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.settings;
 
 
 import android.annotation.TargetApi;
@@ -22,6 +22,11 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+
+import com.barbachowski.k.workbreaker.AppCompatPreferenceActivity;
+import com.barbachowski.k.workbreaker.Const;
+import com.barbachowski.k.workbreaker.R;
+import com.barbachowski.k.workbreaker.Utils;
 
 import java.util.List;
 

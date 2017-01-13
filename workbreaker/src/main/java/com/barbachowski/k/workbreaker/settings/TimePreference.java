@@ -1,4 +1,4 @@
-package com.barbachowski.k.workbreaker;
+package com.barbachowski.k.workbreaker.settings;
 
 /**
  * Created by K on 11/01/2017.
@@ -11,6 +11,9 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
+
+import com.barbachowski.k.workbreaker.R;
+import com.barbachowski.k.workbreaker.Utils;
 
 public class TimePreference extends DialogPreference {
     private int hours =0;
